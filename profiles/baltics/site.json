@@ -1,0 +1,144 @@
+{
+  "initiatives": [
+    {
+      "id": "lithuania-btc",
+      "name": "Lithuania BTC",
+      "country": "LT",
+      "links": [
+        {
+          "name": "Local map and community",
+          "icon": "globe",
+          "url": "https://lithuaniabtc.com/en/"
+        }
+      ]
+    },
+    {
+      "id": "honeybadger",
+      "name": "Baltic Honeybadger",
+      "country": "LV",
+      "links": [
+        {
+          "name": "Website",
+          "icon": "globe",
+          "url": "https://baltichoneybadger.com/"
+        }
+      ]
+    },
+    {
+      "id": "riga-walks",
+      "name": "BitcoinWalk Riga",
+      "country": "LV",
+      "type": "walk",
+      "links": [
+        {
+          "name": "Website",
+          "icon": "walk",
+          "url": "https://bitcoinwalk.org/riga/"
+        },
+        {
+          "name": "Telegram",
+          "icon": "telegram",
+          "url": "https://t.me/+U4lz-vwkGPplOTc0"
+        }
+      ]
+    },
+    {
+      "id": "mission-liberty",
+      "name": "Mission Liberty Tallinn",
+      "country": "EE",
+      "links": [
+        {
+          "name": "Meetup",
+          "icon": "meetup",
+          "url": "https://www.meetup.com/mission-liberty-tallinn/"
+        }
+      ]
+    },
+    {
+      "id": "btcpp-riga",
+      "name": "bitcoin++ Riga",
+      "country": "LV",
+      "links": [
+        {
+          "name": "Website",
+          "icon": "globe",
+          "url": "https://btcpp.dev/riga"
+        }
+      ]
+    },
+    {
+      "id": "bringin",
+      "name": "Bringin · Bitcoin services",
+      "country": "LT",
+      "links": [
+        {
+          "name": "Website",
+          "icon": "globe",
+          "url": "https://bringin.app/about-us"
+        }
+      ]
+    },
+    {
+      "id": "btc2b",
+      "name": "BTC2B · Merchant tools",
+      "country": "EE",
+      "links": [
+        {
+          "name": "Website",
+          "icon": "globe",
+          "url": "https://btc2bgroup.com/"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://baltichoneybadger.com/",
+    "https://bitcoinwalk.org/riga/",
+    "https://www.meetup.com/mission-liberty-tallinn/",
+    "https://baltichoneybadger.com/riga-bitcoin-week",
+    "https://baltichoneybadger.com/location",
+    "https://btcpp.dev/riga",
+    "https://www.meetup.com/mission-liberty-tallinn/events/316565528/",
+    "https://bringin.app/about-us",
+    "https://btc2bgroup.com/"
+  ],
+  "verifiedAt": "2026-09-30",
+  "gallery": [
+    {
+      "src": "profiles/baltics/media-originals/honeybadger-stage.webp",
+      "country": "LV",
+      "alt": {
+        "en": "Audience and panel at Baltic Honeybadger 2023 in Riga"
+      },
+      "credit": "Baltic Honeybadger · official website",
+      "source": "https://baltichoneybadger.com/",
+      "sourceImage": "https://baltichoneybadger.com/_next/static/media/freedom-of-speach-image.9ec018b7.webp",
+      "rights": "Third-party photograph; not covered by the code MIT licence. No reuse licence found.",
+      "kind": "photo"
+    },
+    {
+      "src": "profiles/baltics/media-originals/tallinn-announcement.jpg",
+      "country": "EE",
+      "alt": {
+        "en": "Official event announcement for the Bitcoin community discussion in Tallinn, 22 September 2026"
+      },
+      "credit": "Mission Liberty Tallinn · Meetup event artwork",
+      "source": "https://www.meetup.com/mission-liberty-tallinn/events/316565528/",
+      "sourceImage": "https://secure.meetupstatic.com/photos/event/d/a/e/1/600_536156033.jpeg",
+      "rights": "Third-party event artwork; not covered by the code MIT licence. No reuse licence found.",
+      "kind": "artwork"
+    },
+    {
+      "src": "profiles/baltics/media-originals/honeybadger-art.webp",
+      "country": "LV",
+      "alt": {
+        "en": "Bitcoin artwork displayed on the Baltic Honeybadger official website"
+      },
+      "credit": "Baltic Honeybadger · official website",
+      "source": "https://baltichoneybadger.com/",
+      "sourceImage": "https://baltichoneybadger.com/_next/static/media/bitcoin-only-image.77705c53.webp",
+      "rights": "Third-party photograph and artwork; not covered by the code MIT licence. No reuse licence found.",
+      "kind": "photo"
+    }
+  ]
+}

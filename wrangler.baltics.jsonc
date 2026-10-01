@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bitcoin-baltics",
+  "compatibility_date": "2026-09-30",
+  "assets": {
+    "directory": "./public-baltics",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "bitcoinbaltics.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.bitcoinbaltics.com",
+      "custom_domain": true
+    }
+  ],
+  "main": "worker.mjs",
+  "observability": {
+    "enabled": true,
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.01
+    }
+  }
+}

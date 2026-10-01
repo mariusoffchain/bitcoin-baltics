@@ -1,0 +1,135 @@
+[
+  {
+    "src": "assets/events/3-view.webp",
+    "alt": {
+      "en": "A Bitcoin workshop with a projected presentation",
+      "lt": "Bitcoin dirbtuvės ir pristatymas ekrane"
+    },
+    "source": "https://www.offchain.media/media/3.jpg",
+    "country": "LT",
+    "thumbSrc": "assets/events/3-thumb.webp",
+    "width": 1000,
+    "height": 1000,
+    "originalSource": "assets/events/3.jpg"
+  },
+  {
+    "src": "assets/events/honeybadger-stage-view.webp",
+    "country": "LV",
+    "alt": {
+      "en": "Audience and panel at Baltic Honeybadger 2023 in Riga"
+    },
+    "credit": "Baltic Honeybadger · official website",
+    "source": "https://baltichoneybadger.com/",
+    "sourceImage": "https://baltichoneybadger.com/_next/static/media/freedom-of-speach-image.9ec018b7.webp",
+    "rights": "Third-party photograph; not covered by the code MIT licence. No reuse licence found.",
+    "kind": "photo",
+    "thumbSrc": "assets/events/honeybadger-stage-thumb.webp",
+    "width": 1600,
+    "height": 1067,
+    "originalSource": "profiles/baltics/media-originals/honeybadger-stage.webp"
+  },
+  {
+    "src": "assets/events/tallinn-announcement-view.webp",
+    "country": "EE",
+    "alt": {
+      "en": "Official event announcement for the Bitcoin community discussion in Tallinn, 22 September 2026"
+    },
+    "credit": "Mission Liberty Tallinn · Meetup event artwork",
+    "source": "https://www.meetup.com/mission-liberty-tallinn/events/316565528/",
+    "sourceImage": "https://secure.meetupstatic.com/photos/event/d/a/e/1/600_536156033.jpeg",
+    "rights": "Third-party event artwork; not covered by the code MIT licence. No reuse licence found.",
+    "kind": "artwork",
+    "thumbSrc": "assets/events/tallinn-announcement-thumb.webp",
+    "width": 600,
+    "height": 337,
+    "originalSource": "profiles/baltics/media-originals/tallinn-announcement.jpg"
+  },
+  {
+    "src": "assets/events/alexis-proof-conference-talk-view.webp",
+    "alt": {
+      "en": "A speaker presenting at the PROOF conference",
+      "lt": "Pranešėjas PROOF konferencijoje"
+    },
+    "source": "Provided by the site owner on 2026-09-30",
+    "thumbnail": {
+      "position": [
+        0,
+        100
+      ],
+      "zoom": 1.55
+    },
+    "country": "LT",
+    "thumbSrc": "assets/events/alexis-proof-conference-talk-thumb.webp",
+    "width": 1600,
+    "height": 864,
+    "originalSource": "assets/events/alexis-proof-conference-talk.jpeg"
+  },
+  {
+    "src": "assets/events/honeybadger-art-view.webp",
+    "country": "LV",
+    "alt": {
+      "en": "Bitcoin artwork displayed on the Baltic Honeybadger official website"
+    },
+    "credit": "Baltic Honeybadger · official website",
+    "source": "https://baltichoneybadger.com/",
+    "sourceImage": "https://baltichoneybadger.com/_next/static/media/bitcoin-only-image.77705c53.webp",
+    "rights": "Third-party photograph and artwork; not covered by the code MIT licence. No reuse licence found.",
+    "kind": "photo",
+    "thumbSrc": "assets/events/honeybadger-art-thumb.webp",
+    "width": 1600,
+    "height": 1068,
+    "originalSource": "profiles/baltics/media-originals/honeybadger-art.webp"
+  },
+  {
+    "src": "assets/events/deco-proof-conference-nostr-view.webp",
+    "alt": {
+      "en": "Nostr artwork beside the PROOF conference screen",
+      "lt": "Nostr dekoracija šalia PROOF konferencijos ekrano"
+    },
+    "source": "Provided by the site owner on 2026-09-30",
+    "country": "LT",
+    "thumbSrc": "assets/events/deco-proof-conference-nostr-thumb.webp",
+    "width": 1200,
+    "height": 1600,
+    "originalSource": "assets/events/deco-proof-conference-nostr.jpeg"
+  },
+  {
+    "src": "assets/events/2-view.webp",
+    "alt": {
+      "en": "A film screening at a community meetup",
+      "lt": "Filmo peržiūra bendruomenės susitikime"
+    },
+    "source": "https://www.offchain.media/media/2.jpg",
+    "country": "LT",
+    "thumbSrc": "assets/events/2-thumb.webp",
+    "width": 1000,
+    "height": 1000,
+    "originalSource": "assets/events/2.jpg"
+  },
+  {
+    "src": "assets/events/btc-walk-lt3-view.webp",
+    "alt": {
+      "en": "Participants standing in the snow during a walk",
+      "lt": "Pasivaikščiojimo dalyviai sniege"
+    },
+    "source": "https://www.offchain.media/media/btc-walk-lt3.jpeg",
+    "country": "LT",
+    "thumbSrc": "assets/events/btc-walk-lt3-thumb.webp",
+    "width": 479,
+    "height": 464,
+    "originalSource": "assets/events/btc-walk-lt3.jpeg"
+  },
+  {
+    "src": "assets/events/4-view.webp",
+    "alt": {
+      "en": "A gathering place with a Bitcoin sign",
+      "lt": "Susitikimų vieta su Bitcoin ženklu"
+    },
+    "source": "https://www.offchain.media/media/4.jpg",
+    "country": "LT",
+    "thumbSrc": "assets/events/4-thumb.webp",
+    "width": 1000,
+    "height": 1000,
+    "originalSource": "assets/events/4.jpg"
+  }
+]
