@@ -58,6 +58,42 @@
           "The gallery combines Lithuanian community photographs, archive images from Baltic Honeybadger in Riga, and the official artwork for a Tallinn Bitcoin event. Captions distinguish event artwork from photographs and link to the original source.",
           "Bringin and Tallinn-based BTC2B are listed as Bitcoin services. A company listing is not a claim that its registered office is a shop accepting Bitcoin."
         ]
+      },
+      {
+        "heading": "Explore further",
+        "paragraphs": [
+          "Bitcoin Baltics is a regional initiative of Cypher Baltics."
+        ],
+        "links": [
+          {
+            "label": "Cypher Baltics · privacy, sovereignty and open technology",
+            "url": "https://cypherbaltics.org/"
+          },
+          {
+            "label": "Offchain Media · Bitcoin articles and resources",
+            "url": "https://offchain.media/"
+          }
+        ]
+      },
+      {
+        "heading": "PROOF conference and book",
+        "paragraphs": [
+          "Talks and reading on privacy, decentralisation and monetary sovereignty. Read the book online in English or Lithuanian."
+        ],
+        "links": [
+          {
+            "label": "PROOF conference",
+            "url": "https://proofconference.com/en/"
+          },
+          {
+            "label": "Read the book · English",
+            "url": "https://proofconference.com/book/en/"
+          },
+          {
+            "label": "Read the book · Lietuvių",
+            "url": "https://proofconference.com/book/"
+          }
+        ]
       }
     ]
   }
