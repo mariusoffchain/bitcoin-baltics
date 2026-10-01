@@ -680,11 +680,81 @@ function calendarEvents() {
         .sort((a, b) => new Date(a.start) - new Date(b.start))
     : eventGroups(scopedEvents()).upcoming;
 }
+let paymentMethods = {};
+let sidebarView = "events";
+function renderSidebarTabs() {
+  let tabs = document.querySelector("#sidebar-tabs");
+  if (!tabs) {
+    tabs = el("div", "sidebar-tabs");
+    tabs.id = "sidebar-tabs";
+    tabs.setAttribute("role", "group");
+    for (const view of ["events", "places"]) {
+      const tab = button("", () => {
+        sidebarView = view;
+        renderCalendar();
+        $("#calendar-content").scrollTop = 0;
+      }, "sidebar-tab");
+      tab.dataset.sidebarView = view;
+      tab.setAttribute("aria-controls", "event-list");
+      tabs.append(tab);
+    }
+    $(".calendar-pane").insertBefore(tabs, $("#calendar-content"));
+  }
+  tabs.setAttribute("aria-label", lang === "lt" ? "Rodyti sąrašą" : "Choose list");
+  for (const tab of tabs.children) {
+    tab.textContent = t(tab.dataset.sidebarView === "events" ? "events" : "merchants");
+    tab.setAttribute("aria-pressed", String(tab.dataset.sidebarView === sidebarView));
+  }
+  $(".calendar-pane").setAttribute("aria-label", t(sidebarView === "events" ? "events" : "merchants"));
+}
+function renderPlacesList(list) {
+  const items = scopedPlaces().slice().sort((a,b) => placeName(a).localeCompare(placeName(b), locale()));
+  const section = el("section", "sidebar-places");
+  section.append(el("p", "sidebar-place-count", t("merchants") + " · " + items.length));
+  if (!items.length) section.append(el("p", "empty-state", t("noMatch")));
+  for (const p of items) {
+    const card = button("", () => {
+      if (!merchantsVisible) {
+        merchantsVisible = true;
+        $("#toggle-merchants").setAttribute("aria-pressed", "true");
+        renderMerchantMarkers();
+      }
+      if (matchMedia("(max-width:760px)").matches) setMobileView("map");
+      map?.flyTo({center:[p.lon,p.lat],zoom:16});
+      openPlace(p);
+    }, "sidebar-place");
+    const icon = el("span", "sidebar-place-icon", "₿");
+    icon.setAttribute("aria-hidden", "true");
+    const body = el("span", "sidebar-place-copy");
+    body.append(el("strong", null, placeName(p)));
+    body.append(countryLine(p, "span"));
+    const symbols = el("span", "sidebar-payment-icons");
+    symbols.append(icon);
+    if (paymentMethods[p.osm_id]?.lightning === true) {
+      const lightning = el("span", "sidebar-lightning");
+      lightning.setAttribute("role", "img");
+      lightning.setAttribute("aria-label", "Lightning");
+      lightning.title = lang === "lt" ? "Priima Lightning · OpenStreetMap" : "Accepts Lightning · OpenStreetMap";
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("aria-hidden", "true");
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M14 2 4 14h7l-1 8 10-12h-7Z");
+      svg.append(path);lightning.append(svg);symbols.append(lightning);
+    }
+    card.append(symbols, body);
+    section.append(card);
+  }
+  list.append(section);
+}
+
 function renderCalendar() {
+  renderSidebarTabs();
   const groups = eventGroups(scopedEvents()),
     list = $("#event-list");
   list.replaceChildren();
   renderCountryFilters();
+  if (sidebarView === "places") { renderPlacesList(list); return; }
   const upcoming = el("section", "upcoming-events");
   upcoming.append(
     el(
@@ -780,6 +850,24 @@ function showEvent(e) {
         : el("span", null, e.venue),
     );
   target.append(meta);
+  if (e.image && /^assets\/event-covers\/[a-zA-Z0-9._-]+\.webp$/.test(e.image.src)) {
+    const figure = el("figure", "event-cover");
+    const img = el("img");
+    img.src = e.image.src;
+    img.alt = e.image.kind === "organiser" ? "Community visual" : (e.title[lang] || e.title.en);
+    img.width = e.image.width;
+    img.height = e.image.height;
+    img.decoding = "async";
+    img.addEventListener("error", () => figure.remove(), { once: true });
+    figure.append(img);
+    if (safeURL(e.image.source)) {
+      const caption = el("figcaption");
+      caption.append(link(lang === "lt" ? "Šaltinis" : (e.image.kind === "organiser" ? "Community visual · Source" : "Event visual · Source"), e.image.source));
+      figure.append(caption);
+    }
+    target.append(figure);
+  }
+
   if (e.address || (COUNTRY.regional && e.country)) {
     const row = el("div", "detail-address");
     const pin = el("span", "address-icon");
@@ -962,6 +1050,21 @@ function showEvent(e) {
     ),
   );
   target.append(actions, shareStatus);
+  const heading = el("header", "event-heading");
+  const body = el("div", "event-body");
+  const information = el("div", "event-information");
+  const artwork = target.querySelector(".event-cover");
+  const badge = target.querySelector(".badge");
+  if (badge) heading.append(badge);
+  heading.append(h);
+  for (const child of [...target.children]) {
+    if (child !== artwork && child !== actions && child !== shareStatus) information.append(child);
+  }
+  body.append(information);
+  if (artwork) body.append(artwork);
+  body.classList.toggle("has-artwork", Boolean(artwork));
+  target.replaceChildren(heading, body, actions, shareStatus);
+
   if (!dialog.open) dialog.showModal();
 }
 function renderMerchantMarkers() {
@@ -1122,6 +1225,7 @@ async function refreshPlaces() {
       );
     } catch {}
     renderStatus();
+    if (sidebarView === "places") renderCalendar();
     renderMerchantMarkers();
     renderSearch();
   } catch (err) {
@@ -1306,10 +1410,11 @@ $("#appearance").onclick = async () => {
 async function start() {
   renderLabels();
   try {
-    [boundary, events, config] = await Promise.all([
+    [boundary, events, config, paymentMethods] = await Promise.all([
       json("./" + COUNTRY.boundaryPath),
       json("./data/events.json"),
       json("./data/site.json"),
+      json("./data/payment-methods.json").catch(() => ({})),
     ]);
     if (!Array.isArray(events)) throw Error("events");
     renderLabels();

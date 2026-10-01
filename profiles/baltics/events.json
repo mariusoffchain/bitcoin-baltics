@@ -20,7 +20,15 @@
     ],
     "sourceVerifiedAt": "2026-09-30",
     "lat": 59.437958,
-    "lon": 24.74415
+    "lon": 24.74415,
+    "image": {
+      "src": "assets/event-covers/tallinn-316565528.webp",
+      "source": "https://www.meetup.com/mission-liberty-tallinn/events/316565528/",
+      "original": "https://secure.meetupstatic.com/photos/event/d/a/e/1/600_536156033.jpeg",
+      "width": 600,
+      "height": 337,
+      "kind": "event"
+    }
   },
   {
     "id": "honeybadger-riga-2025",
@@ -45,7 +53,15 @@
       "https://baltichoneybadger.com/riga-bitcoin-week",
       "https://baltichoneybadger.com/location"
     ],
-    "sourceVerifiedAt": "2026-09-30"
+    "sourceVerifiedAt": "2026-09-30",
+    "image": {
+      "src": "assets/event-covers/honeybadger-riga-2025.webp",
+      "source": "https://baltichoneybadger.com/",
+      "original": "https://baltichoneybadger.com/og-images/link-preview-twitter.png",
+      "width": 1200,
+      "height": 675,
+      "kind": "event"
+    }
   },
   {
     "id": "btcpp-riga-privacy-2025",
@@ -68,6 +84,14 @@
       "https://btcpp.dev/riga",
       "https://baltichoneybadger.com/riga-bitcoin-week"
     ],
-    "sourceVerifiedAt": "2026-09-30"
+    "sourceVerifiedAt": "2026-09-30",
+    "image": {
+      "src": "assets/event-covers/btcpp-riga-privacy-2025.webp",
+      "source": "https://btcpp.dev/riga",
+      "original": "https://btcpp.dev/social-cards/conference/riga.jpg?v=bd6c2ad08ef0",
+      "width": 1200,
+      "height": 630,
+      "kind": "event"
+    }
   }
 ]

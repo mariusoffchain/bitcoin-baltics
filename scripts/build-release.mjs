@@ -45,6 +45,7 @@ const files = [
   "vendor/maplibre-LICENSE.txt",
   "data/events.json",
   "data/site.json",
+  "data/payment-methods.json",
   COUNTRY.boundaryPath,
   "data/map-style.json",
   "data/map-light.json",
@@ -140,6 +141,15 @@ await copyFile(
   resolve(root, "assets/events/provenance.txt"),
   resolve(out, "assets/events/provenance.txt"),
 );
+// Copy only artwork referenced by the built event dataset.
+const builtEvents = JSON.parse(await readFile(resolve(out, "data/events.json"), "utf8"));
+for (const e of builtEvents) {
+  if (!e.image) continue;
+  const path = e.image.src;
+  if (!/^assets\/event-covers\/[a-zA-Z0-9._-]+\.webp$/.test(path)) throw Error("Invalid event artwork path");
+  await mkdir(dirname(resolve(out, path)), { recursive: true });
+  await copyFile(resolve(root, path), resolve(out, path));
+}
 let template = (await readFile(resolve(root, "atlas.html"), "utf8")).replace(
   "</head>",
   '<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/logo.png"><meta name="apple-mobile-web-app-title" content="Lithuania BTC"><script defer src="/pwa.js"></script></head>',
