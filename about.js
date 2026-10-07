@@ -43,7 +43,7 @@ language.setAttribute(
 );
 language.onclick = () => {
   location.href =
-    (en ? "/about/" : "/en/about/") +
+    (document.body.dataset.alternate || (en ? "/about/" : "/en/about/")) +
     "?mode=" +
     (document.body.classList.contains("mode-dark") ? "dark" : "light");
 };

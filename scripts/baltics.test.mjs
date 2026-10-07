@@ -104,3 +104,35 @@ test("regional home has one H1 and lists events from all three countries before 
   for (const country of ["Lithuania", "Estonia"])
     assert.match(html, new RegExp(`class="event-copy"><h3>[^<]+</h3><p>[^<]+, ${country}</p>`));
 });
+test("regional events have their own page; Lithuanian ones point to Lithuania BTC", () => {
+  const events = JSON.parse(output("data/events.json")).filter(
+    (e) => e.status !== "planned" && e.start,
+  );
+  const lithuanian = new Set(read("data/events.json").map((e) => e.id));
+  const sitemap = output("sitemap.xml");
+  assert.ok(events.some((e) => !lithuanian.has(e.id)));
+  for (const e of events) {
+    const html = output(`events/${e.id}/index.html`);
+    const own = !lithuanian.has(e.id);
+    const canonical = own
+      ? `https://bitcoinbaltics.com/events/${e.id}/`
+      : `https://lithuaniabtc.com/en/events/${e.id}/`;
+    assert.match(html, new RegExp(`rel="canonical" href="${canonical}"`));
+    assert.match(html, /<html lang="en"/);
+    assert.ok(!html.includes("hreflang"));
+    assert.equal((html.match(/<h1>/g) || []).length, 1);
+    assert.ok(html.includes("/identity.css"));
+    const schemas = [
+      ...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs),
+    ].map((m) => JSON.parse(m[1]));
+    assert.equal(schemas.length, own ? 1 : 0);
+    assert.equal(sitemap.includes(canonical), own);
+    if (own) {
+      assert.equal(schemas[0]["@type"], "Event");
+      assert.equal(schemas[0].location.address.addressCountry, e.country);
+      assert.ok(schemas[0].organizer.name);
+    }
+    assert.ok(output("index.html").includes(`href="/events/${e.id}/"`));
+  }
+  assert.throws(() => output("en/events/tallinn-316565528/index.html"));
+});

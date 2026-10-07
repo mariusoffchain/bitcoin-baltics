@@ -12,6 +12,8 @@ import { createHash } from "node:crypto";
 import { buildLLMs } from "./build-llms.mjs";
 import { aboutPage } from "./about-page.mjs";
 import { crawlableHome } from "./home-crawlable.mjs";
+import { hasEventPage, eventSlug } from "./event-data.mjs";
+import { atlasEventPage } from "./event-page.mjs";
 import { COUNTRY as LITHUANIA } from "../country-config.js";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const regional = process.env.SITE_PROFILE === "baltics";
@@ -152,6 +154,42 @@ for (const e of builtEvents) {
   await mkdir(dirname(resolve(out, path)), { recursive: true });
   await copyFile(resolve(root, path), resolve(out, path));
 }
+// Every dated event gets /events/<id>/, plus /en/events/<id>/ when the site is bilingual.
+const pageLanguages = regional ? ["en"] : ["lt", "en"];
+const eventPath = (e, language) =>
+  (language === "en" && !regional ? "/en" : "") +
+  "/events/" +
+  eventSlug(e) +
+  "/";
+const pageEvents = builtEvents.filter(hasEventPage);
+// Lithuanian community events are published by Lithuania BTC; regional copies point there.
+const lithuanian = new Set(
+  JSON.parse(await readFile(resolve(root, "data/events.json"), "utf8")).map(
+    (e) => e.id,
+  ),
+);
+const canonicalEvent = (e, language) =>
+  regional && lithuanian.has(e.id)
+    ? "https://lithuaniabtc.com/en/events/" + eventSlug(e) + "/"
+    : origin + eventPath(e, language);
+const ORGANISERS = {
+  proof: { name: "PROOF", url: "https://proofconference.com/" },
+  walks: { name: "BitcoinWalk Vilnius", url: "https://bitcoinwalk.org/vilnius" },
+  meetups: {
+    name: "Bitcoin Lithuania Meetup",
+    url: "https://www.meetup.com/bitcoin-lithuania-meetup/",
+  },
+};
+const organiser = (e) => {
+  const initiative =
+    !lithuanian.has(e.id) && site.initiatives.find((i) => i.id === e.initiative);
+  if (initiative)
+    return { name: initiative.name, url: initiative.links?.[0]?.url };
+  // Same owner rule as the event modal in atlas-app.js.
+  return ORGANISERS[
+    e.type === "conference" ? "proof" : e.type === "walk" ? "walks" : "meetups"
+  ];
+};
 let template = (await readFile(resolve(root, "atlas.html"), "utf8")).replace(
   "</head>",
   '<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/logo.png"><meta name="apple-mobile-web-app-title" content="Lithuania BTC"><script defer src="/pwa.js"></script></head>',
@@ -333,6 +371,7 @@ for (const lang of routes) {
     lang: language,
     timezone: COUNTRY.timezone,
     countries: COUNTRY.countries,
+    eventHref: (e) => eventPath(e, language),
   });
   await writeFile(resolve(out, lang, "index.html"), html);
 }
@@ -343,7 +382,12 @@ await writeFile(
 );
 await writeFile(
   resolve(out, "sitemap.xml"),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${(regional ? ["/", "/about/"] : ["/", "/en/", "/about/", "/en/about/"]).map((p) => `<url><loc>${origin + p}</loc></url>`).join("")}</urlset>\n`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${[
+    ...(regional ? ["/", "/about/"] : ["/", "/en/", "/about/", "/en/about/"]),
+    ...pageEvents
+      .filter((e) => canonicalEvent(e, "en").startsWith(origin))
+      .flatMap((e) => pageLanguages.map((l) => eventPath(e, l))),
+  ].map((p) => `<url><loc>${origin + p}</loc></url>`).join("")}</urlset>\n`,
 );
 const manifest = JSON.parse(
   await readFile(resolve(root, "manifest.webmanifest"), "utf8"),
@@ -375,6 +419,48 @@ if (regional) {
     const path = resolve(out, page);
     const html = await readFile(path, "utf8");
     await writeFile(path, html.replace(/<meta name="theme-color"[^>]*>/g, '<meta name="theme-color" content="#10212d">').replace("</head>", '<link rel="stylesheet" href="/identity.css"><script defer src="/identity.js"></script></head>'));
+  }
+}
+
+// Event pages copy the finished About page, so they come after its regional styling.
+for (const language of pageLanguages) {
+  const bilingual = language === "en" && !regional;
+  const about = await readFile(
+    resolve(out, bilingual ? "en/about" : "about", "index.html"),
+    "utf8",
+  );
+  for (const event of pageEvents) {
+    const path = eventPath(event, language);
+    const canonical = canonicalEvent(event, language);
+    await mkdir(resolve(out, path.slice(1)), { recursive: true });
+    await writeFile(
+      resolve(out, path.slice(1), "index.html"),
+      atlasEventPage({
+        template: about,
+        event,
+        lang: language,
+        origin,
+        name: COUNTRY.name,
+        home: bilingual ? "/en/" : "/",
+        canonical,
+        alternates: regional
+          ? {}
+          : {
+              lt: origin + eventPath(event, "lt"),
+              en: origin + eventPath(event, "en"),
+              "x-default": origin + eventPath(event, "lt"),
+            },
+        alternatePath: regional
+          ? null
+          : eventPath(event, language === "en" ? "lt" : "en"),
+        organiser: organiser(event),
+        timezone: COUNTRY.timezone,
+        defaultCountry: "LT",
+        showCountry: regional,
+        // Search engines read the Event once, on the page that publishes it.
+        structuredData: canonical.startsWith(origin),
+      }),
+    );
   }
 }
 
