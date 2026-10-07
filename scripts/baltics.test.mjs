@@ -95,3 +95,12 @@ test("regional gallery has local optimized thumbnails, sources and all three cou
   assert.match(output("index.html"), /href="\/identity.css"/);
   assert.match(output("about/index.html"), /href="\/identity.css"/);
 });
+test("regional home has one H1 and lists events from all three countries before JavaScript", () => {
+  const html = output("index.html");
+  assert.deepEqual(
+    [...html.matchAll(/<h1[^>]*>([^<]*)<\/h1>/g)].map((m) => m[1]),
+    ["Bitcoin map and events across the Baltics"],
+  );
+  for (const country of ["Lithuania", "Estonia"])
+    assert.match(html, new RegExp(`class="event-copy"><h3>[^<]+</h3><p>[^<]+, ${country}</p>`));
+});

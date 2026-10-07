@@ -566,6 +566,8 @@ function renderLabels() {
       (lang === "lt"
         ? " | Bitcoin vietos ir renginiai Lietuvoje"
         : " | Bitcoin map and events in Lithuania");
+  const heading = $("#page-heading");
+  if (heading) heading.textContent = document.title.split(" | ").pop();
   document
     .querySelectorAll(".brand-description, .community-description")
     .forEach((n) => {
