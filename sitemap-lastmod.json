@@ -1,0 +1,22 @@
+{
+  "https://bitcoinbaltics.com/": {
+    "sha256": "79e0cb8040dd3c03d7a9cecfc68cbdf65053ce576da3d1a5e3658d96b86be236",
+    "lastmod": "2026-10-08"
+  },
+  "https://bitcoinbaltics.com/about/": {
+    "sha256": "50b8e58351d872f9b8faffc86e03f2bb5eae3fdf70903dba72050e539fbaf7bc",
+    "lastmod": "2026-10-08"
+  },
+  "https://bitcoinbaltics.com/events/tallinn-316565528/": {
+    "sha256": "cc50c14eee7757c333931f7f16f2618c9193a0d6c04bd795259728e20cf5324c",
+    "lastmod": "2026-10-08"
+  },
+  "https://bitcoinbaltics.com/events/honeybadger-riga-2025/": {
+    "sha256": "b16294e205f6944074548f20d761cbfa605e4f8a102049e9a8b5680b27275e7c",
+    "lastmod": "2026-10-08"
+  },
+  "https://bitcoinbaltics.com/events/btcpp-riga-privacy-2025/": {
+    "sha256": "c6fc0bb88e90cd97e0db260e8e7af31c81ec8cbfb121552a44dfa0e1c2bec846",
+    "lastmod": "2026-10-08"
+  }
+}

@@ -10,7 +10,7 @@
     "format:check": "prettier --check .",
     "deploy:check": "wrangler deploy --config wrangler.baltics.jsonc --dry-run",
     "deploy": "wrangler deploy --config wrangler.baltics.jsonc",
-    "build:baltics": "SITE_PROFILE=baltics node scripts/build-release.mjs",
+    "build:baltics": "SITE_PROFILE=baltics node scripts/build-release.mjs && node scripts/sitemap-lastmod.mjs public-baltics",
     "preview:baltics": "python3 scripts/preview.py --directory public-baltics --port 8775",
     "refresh:baltics": "SITE_PROFILE=baltics node scripts/refresh-snapshot.mjs"
   },
