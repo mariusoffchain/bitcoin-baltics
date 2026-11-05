@@ -185,7 +185,7 @@ let countryFilter = (COUNTRY.countries || []).some(
 const scopedEvents = () => events.filter((e) => inScope(e, countryFilter));
 const scopedPlaces = () => places.filter((p) => inScope(p, countryFilter));
 const addressLabel = (item) =>
-  countryAddress(item.address || "", item.country, COUNTRY.countries);
+  countryAddress(item.address || "", item.country, (COUNTRY.countries || []).map(c => ({...c, name: lang === "lt" ? ({LT:"Lietuva",LV:"Latvija",EE:"Estija"}[c.code] || c.name) : c.name})));
 function countryLine(item, tag = "p", cls = null) {
   const line = el(tag, cls, addressLabel(item));
   if (COUNTRY.regional && item.country) line.prepend(countryIcon(item.country));
@@ -203,7 +203,7 @@ function renderCountryFilters() {
     if (document.getElementById(id)) continue;
     const select = el("select", "country-filter");
     select.id = id;
-    select.setAttribute("aria-label", "Filter by country");
+    select.setAttribute("aria-label", lang === "lt" ? "Filtruoti pagal šalį" : "Filter by country");
     for (const c of [
       { code: "", name: "All Baltics", flag: "" },
       ...COUNTRY.countries,
@@ -211,7 +211,7 @@ function renderCountryFilters() {
       const option = el(
         "option",
         null,
-        c.name,
+        lang === "lt" ? ({LT:"Lietuva",LV:"Latvija",EE:"Estija", "":"Visos Baltijos šalys"}[c.code] || c.name) : c.name,
       );
       option.value = c.code;
       select.append(option);
@@ -242,7 +242,7 @@ function renderCountryFilters() {
 function updateAboutLinks() {
   document.querySelectorAll("[data-about-link]").forEach((a) => {
     a.href =
-      (COUNTRY.regional || lang === "lt" ? "/about/" : "/en/about/") +
+      (COUNTRY.regional ? (lang === "lt" ? "/lt/about/" : "/about/") : (lang === "lt" ? "/about/" : "/en/about/")) +
       "?mode=" +
       (isDark() ? "dark" : "light");
     (a.querySelector("span") || a).textContent =
@@ -424,7 +424,7 @@ function renderGallery(container) {
     img.height = 300;
     b.append(img);
     if (COUNTRY.regional && item.country) {
-      const caption = el("span", "gallery-country", item.country + (item.kind === "artwork" ? " · Event artwork" : ""));
+      const caption = el("span", "gallery-country", item.country + (item.kind === "artwork" ? (lang === "lt" ? " · Renginio vaizdas" : " · Event artwork") : ""));
       caption.prepend(countryIcon(item.country));
       b.append(caption);
     }
@@ -555,7 +555,7 @@ function renderLabels() {
   $("#fit").setAttribute(
     "aria-label",
     COUNTRY.regional
-      ? "Reset selected country or Baltic view"
+      ? (lang === "lt" ? "Atkurti pasirinktos šalies arba Baltijos šalių vaizdą" : "Reset selected country or Baltic view")
       : lang === "lt"
         ? "Atkurti Lietuvos vaizdą"
         : "Reset Lithuania view",
@@ -563,7 +563,7 @@ function renderLabels() {
   $("#fit").title = $("#fit").getAttribute("aria-label");
   document.documentElement.lang = lang;
   document.title =
-    COUNTRY.pageTitle ||
+    (lang === "lt" && COUNTRY.pageTitleLT) || COUNTRY.pageTitle ||
     COUNTRY.name +
       (lang === "lt"
         ? " | Bitcoin vietos ir renginiai Lietuvoje"
@@ -574,14 +574,14 @@ function renderLabels() {
     .querySelectorAll(".brand-description, .community-description")
     .forEach((n) => {
       n.textContent =
-        COUNTRY.tagline ||
+        (lang === "lt" && COUNTRY.taglineLT) || COUNTRY.tagline ||
         (lang === "lt"
           ? "Atrask Bitcoin bendruomenę Lietuvoje."
           : "Meet the Bitcoin community in Lithuania.");
     });
   updateAboutLinks();
   document.querySelector("meta[name=description]").content =
-    COUNTRY.description ||
+    (lang === "lt" && COUNTRY.descriptionLT) || COUNTRY.description ||
     (lang === "lt"
       ? "Bitcoin priimančios vietos Lietuvoje, bendruomenės susitikimai ir pasivaikščiojimai."
       : "Find places accepting Bitcoin in Lithuania, community meetups and Bitcoin walks.");
@@ -634,7 +634,7 @@ function renderStatus() {
 // Built for every dated event by scripts/build-release.mjs.
 const eventPagePath = (e) =>
   e.status !== "planned" && e.start
-    ? (lang === "en" && COUNTRY.languages?.length !== 1 ? "/en" : "") +
+    ? (COUNTRY.regional ? (lang === "lt" ? "/lt" : "") : (lang === "en" ? "/en" : "")) +
       "/events/" +
       encodeURIComponent(e.id) +
       "/"
@@ -778,12 +778,17 @@ function renderCalendar() {
   const contribute = el("a", null, lang === "lt" ? "Siūlyti renginį ar pataisymą" : "Submit an event or correction");
   contribute.href = "/contribute/?lang=" + lang;
   help.append(contribute);
+  const resourceBase = COUNTRY.regional ? (lang === "lt" ? "/lt/" : "/") : (lang === "en" ? "/en/" : "/");
+  for (const [path, en, lt] of [["learn", "Start here", "Pradėti"], ["accept-bitcoin", "For merchants", "Verslui"], ["press", "Press", "Žiniasklaidai"], ["partners", "Partners", "Bendradarbiavimas"]]) {
+    const a = el("a", null, lang === "lt" ? lt : en); a.href = resourceBase + path + "/"; help.append(a);
+  }
+
   for (const initiative of (config.initiatives || []).filter(i => (!i.country || !countryFilter || i.country === countryFilter) && (i.id === "meetups" || i.id === "riga-walks" || i.id === "mission-liberty"))) {
     for (const channel of initiative.links.filter(l => l.kind !== "event")) help.append(link(initiative.name + " · " + channel.name, channel.url));
   }
   const nextYear = Number(dateKey(new Date()).slice(0, 4)) + 1;
   if (!scopedEvents().some(event => event.start && Number(event.start.slice(0,4)) <= nextYear && Number((event.end || event.start).slice(0,4)) >= nextYear)) {
-    help.append(el("p", null, `No confirmed ${nextYear} dates are listed for this area. Check the community channels above for announcements.`));
+    help.append(el("p", null, lang === "lt" ? `Šioje vietovėje patvirtintų ${nextYear} m. renginių datų kol kas nėra. Naujienas sek aukščiau nurodytais bendruomenės kanalais.` : `No confirmed ${nextYear} dates are listed for this area. Check the community channels above for announcements.`));
   }
   list.append(help);
   renderCountryFilters();
@@ -1399,7 +1404,7 @@ async function initMap() {
 }
 $("#language").onclick = () => {
   const u = new URL(location.href);
-  u.pathname = lang === "lt" ? "/en/" : "/";
+  u.pathname = COUNTRY.regional ? (lang === "lt" ? "/" : "/lt/") : (lang === "lt" ? "/en/" : "/");
   u.searchParams.delete("lang");
   location.assign(u.href);
 };

@@ -1,22 +1,42 @@
 {
   "https://bitcoinbaltics.com/": {
-    "sha256": "79e0cb8040dd3c03d7a9cecfc68cbdf65053ce576da3d1a5e3658d96b86be236",
-    "lastmod": "2026-10-08"
+    "sha256": "f8ec2a3d0b2c78c32deaa788dfae3942d1f4579b4ae0c3ed857ee5e380dd4ba4",
+    "lastmod": "2026-11-05"
   },
   "https://bitcoinbaltics.com/about/": {
     "sha256": "50b8e58351d872f9b8faffc86e03f2bb5eae3fdf70903dba72050e539fbaf7bc",
     "lastmod": "2026-10-08"
   },
   "https://bitcoinbaltics.com/events/tallinn-316565528/": {
-    "sha256": "bf0784965e2cf22e59f9e27a9dee4875a9438005a67c88691bf3567d489d9a86",
+    "sha256": "2a23eec83c77a92f8ef5d8e3044ce0f7bce7ada9c678a3f798c800874359bfd3",
     "lastmod": "2026-11-05"
   },
   "https://bitcoinbaltics.com/events/honeybadger-riga-2025/": {
-    "sha256": "0319b3d4daa643f5ae92228b7e0a875ff4422e7284ec745359a4378733230165",
+    "sha256": "4dd9a559d3d874c3f6572d20d4b7a77eedb356f2127f13e0c8e90cce80f750b4",
     "lastmod": "2026-11-05"
   },
   "https://bitcoinbaltics.com/events/btcpp-riga-privacy-2025/": {
-    "sha256": "5b45c85c71a634527434ff854955025e49b4240b008116eb70f90770ea85ef37",
+    "sha256": "d1e5ac47ec89af587fbef53f88774b0ed9c742af745f84200d5be0b5c0cd9816",
+    "lastmod": "2026-11-05"
+  },
+  "https://bitcoinbaltics.com/lt/": {
+    "sha256": "3131c4d326762267c99e1ec2939e7b79eafe832117a4d9b054f7cdd7af5cba69",
+    "lastmod": "2026-11-05"
+  },
+  "https://bitcoinbaltics.com/lt/about/": {
+    "sha256": "06c05568d89e89ea8c490f6b2d34b343db436ea495544a257f5f0dcd5900af0a",
+    "lastmod": "2026-11-05"
+  },
+  "https://bitcoinbaltics.com/lt/events/tallinn-316565528/": {
+    "sha256": "c20bc241419852cbef0907e6b60696df7ec76e3e4358563f407475952490a604",
+    "lastmod": "2026-11-05"
+  },
+  "https://bitcoinbaltics.com/lt/events/honeybadger-riga-2025/": {
+    "sha256": "1c996da02bfc9469d17bc633c655b16da1687a845be4c23b8c7b3035767b5afb",
+    "lastmod": "2026-11-05"
+  },
+  "https://bitcoinbaltics.com/lt/events/btcpp-riga-privacy-2025/": {
+    "sha256": "5aa5afcead766fbe818c55f071847add86c25af3fc745e900e997336115d269f",
     "lastmod": "2026-11-05"
   }
 }

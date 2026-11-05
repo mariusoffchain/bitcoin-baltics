@@ -462,7 +462,7 @@ for (const language of pageLanguages) {
               "x-default": origin + eventPath(event, "lt"),
             },
         alternatePath: regional
-          ? null
+          ? "/lt/events/" + eventSlug(event) + "/"
           : eventPath(event, language === "en" ? "lt" : "en"),
         organiser: organiser(event),
         timezone: COUNTRY.timezone,

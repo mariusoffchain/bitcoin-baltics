@@ -10,7 +10,7 @@
     "format:check": "prettier --check .",
     "deploy:check": "wrangler deploy --config wrangler.baltics.jsonc --dry-run",
     "deploy": "wrangler deploy --config wrangler.baltics.jsonc",
-    "build:baltics": "SITE_PROFILE=baltics node scripts/build-release.mjs && node scripts/sitemap-lastmod.mjs public-baltics && node scripts/build-contribute.mjs public-baltics \"Bitcoin Baltics\" contact@bitcoinbaltics.com",
+    "build:baltics": "SITE_PROFILE=baltics node scripts/build-release.mjs && node scripts/build-lt.mjs && node scripts/sitemap-lastmod.mjs public-baltics && node scripts/build-contribute.mjs public-baltics \"Bitcoin Baltics\" contact@bitcoinbaltics.com && node scripts/build-visitor-pages.mjs public-baltics \"Bitcoin Baltics\" contact@bitcoinbaltics.com && node scripts/build-visitor-links.mjs public-baltics \"Bitcoin Baltics\"",
     "preview:baltics": "python3 scripts/preview.py --directory public-baltics --port 8775",
     "refresh:baltics": "SITE_PROFILE=baltics node scripts/refresh-snapshot.mjs"
   },

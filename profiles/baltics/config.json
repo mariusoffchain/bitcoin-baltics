@@ -79,9 +79,13 @@
   "description": "Find places accepting Bitcoin, meetups and walks in Lithuania, Latvia and Estonia.",
   "defaultLanguage": "en",
   "languages": [
-    "en"
+    "en",
+    "lt"
   ],
   "cachePrefix": "bitcoin-baltics",
   "regional": true,
-  "contactEmail": "contact@bitcoinbaltics.com"
+  "contactEmail": "contact@bitcoinbaltics.com",
+  "pageTitleLT": "Bitcoin Baltics | Bitcoin vietos ir renginiai Baltijos šalyse",
+  "taglineLT": "Atrask Bitcoin Baltijos šalyse.",
+  "descriptionLT": "Bitcoin priimančios vietos ir bendruomenių renginiai Lietuvoje, Latvijoje ir Estijoje."
 }
