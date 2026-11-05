@@ -61,3 +61,14 @@ Builds generate social metadata, sitemap.xml, robots.txt, llms.txt and Markdown 
 ## License
 
 Code is [MIT](LICENSE), preserving the upstream copyright. Fonts, map data, photos and third-party logos have separate terms. See [THIRD_PARTY.md](THIRD_PARTY.md) and [Baltic asset notes](profiles/baltics/ASSETS.md). A code fork does not grant rights to reuse third-party media.
+
+
+## Visitor navigation changes (2026-11-05)
+
+Local work on `fix/visitor-navigation`; no deployment is included. The existing build command also generates `/contribute/`. Its English/Lithuanian form only prepares a message in the browser. It has no submission endpoint, stays disabled without JavaScript, and exposes copying and an explicit email-draft link. No message is sent automatically. Correction links carry the existing event or listing reference.
+
+Merchant search normalizes accents and indexes the name, address, city, category, icon and description. `?q=` preserves the query. Nearby screen coordinates form selectable groups, including identical coordinates. Mobile place details use a native dialog above the map, with coordinate-based directions and dated Lightning information when present in the existing source data.
+
+`filterPlaces` excludes empty/unnamed records and the specific Fun Casino listing from the generated snapshot, cached records and live responses. Imported source JSON is preserved. `calendar.js` escapes and folds ICS text, handles date-only events, and leaves the end unset when no end is known. The usual meetup cadence is descriptive, not a confirmed next event.
+
+Validation includes the repository tests and separate DOM interaction tests. The latter simulate responsive branches with map geometry mocked; they do not establish the rendered layout, tile loading or behaviour on physical phones. A real desktop/mobile visual review is still required before release. No complete new Lithuanian landing-page translation is claimed.
