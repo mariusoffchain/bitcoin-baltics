@@ -37,7 +37,7 @@ npm run deploy
 
 `wrangler.baltics.jsonc` targets the Bitcoin Baltics Worker and both custom domains. `worker.mjs` redirects www to the canonical domain, preserving paths and query parameters, then serves static assets. GitHub holds source code; publishing to Cloudflare is a separate step, not an automatic consequence of pushing.
 
-For a fork, replace the Worker name and domains in `wrangler.baltics.jsonc`, update the hostname in `worker.mjs`, and use your own Cloudflare account. No API credentials are stored in this repository. The legacy `wrangler.jsonc` belongs to the upstream Lithuanian profile; do not use it to deploy a fork.
+For a fork, replace the Worker name and domains in `wrangler.baltics.jsonc`, update the hostname in `worker.mjs`, and use your own Cloudflare account. No API credentials are stored in this repository.
 
 ## Content and adaptation
 
